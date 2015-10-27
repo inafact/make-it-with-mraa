@@ -1,15 +1,15 @@
-var m = require('mraa')
+var m = require('mraa');
 console.log('MRAA Version: ' + m.getVersion()); //write the mraa version to the console
 
 function encodeL() {
-    if(l.read() == 1){
-        if(r.read() == 1){
-            c ++;
-        }else{
-            c --;
-        }
+  if(l.read() == 1){
+    if(r.read() == 1){
+      c ++;
+    }else{
+      c --;
     }
-    console.log(c);
+  }
+  console.log(c);
 }
 
 var l = new m.Gpio(6);
@@ -24,5 +24,5 @@ r.mode(m.MODE_PULLUP);
 l.isr(m.EDGE_RISING, encodeL);
 
 setInterval(function(){
-    /* nop */
+  /* nop */
 },1000);

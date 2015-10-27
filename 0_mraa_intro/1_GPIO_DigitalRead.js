@@ -35,8 +35,7 @@ myDigitalPin.mode(m.MODE_PULLUP); //set the gpio direction to input
 
 periodicActivity(); //call the periodicActivity function
 
-function periodicActivity() //
-{
+function periodicActivity() {
   var myDigitalValue =  myDigitalPin.read(); //read the digital value of the pin
   console.log('Gpio is ' + myDigitalValue); //write the read value out to the console
   setTimeout(periodicActivity,1000); //call the indicated function after 1 second (1000 milliseconds)

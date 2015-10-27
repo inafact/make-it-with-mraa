@@ -20,6 +20,10 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *
+ * Modified by Takanobu Inafuku (@inafact)
+ *
  */
 
 var m = require('mraa'); //require mraa
@@ -31,11 +35,10 @@ var analogValueFloat = analogPin0.readFloat(); //read the pin value as a float
 
 periodicActivity(); //call the periodicActivity function
 
-function periodicActivity() //
-{
-    analogValue = analogPin0.read(); //read the value of the analog pin
-    analogValueFloat = analogPin0.readFloat(); //read the pin value as a float
-    console.log(analogValue); //write the value of the analog pin to the console
-    console.log(analogValueFloat.toFixed(5)); //write the value in the float format
-    setTimeout(periodicActivity,1000); //call the indicated function after 1 second (1000 milliseconds)
+function periodicActivity() {
+  analogValue = analogPin0.read(); //read the value of the analog pin
+  analogValueFloat = analogPin0.readFloat(); //read the pin value as a float
+  console.log(analogValue); //write the value of the analog pin to the console
+  console.log(analogValueFloat.toFixed(5)); //write the value in the float format
+  setTimeout(periodicActivity,1000); //call the indicated function after 1 second (1000 milliseconds)
 }
