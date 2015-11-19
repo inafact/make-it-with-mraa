@@ -75,29 +75,41 @@ _＊ちなみに内容のベースは[libmraa本家のexample](https://github.co
 ブレッドボード上の回路はPDFもしくは[Fritzing](http://fritzing.org/home/)のドキュメントを同梱していますので、そちらを参考にしてください。
 
 
+ソースコードは
+
+https://github.com/inafact/make-it-with-mraa.git
+
+からEdison上にgitでcloneしてくるか、
+
+https://github.com/inafact/make-it-with-mraa/releases
+
+から最新のものをダウンロードして、Edison上に展開します。
+
+
+
 ## 1. デジタル出力
 
-```
+```bash
 python 1_GPIO_DigitalRead.py
 ```
 
-```
+```bash
 node 1_GPIO_DigitalRead.js
 ```
 
 ## 2. アナログ入力
 
-```
+```bash
 python 2_AioA0.py
 ```
 
-```
+```bash
 node 2_AioA0.js
 ```
 
 ## 3. 割り込み処理（ロータリーエンコーダー）
 
-```
+```bash
 python 3_IsrRotaryEncoder.py
 ```
 
@@ -110,38 +122,30 @@ node 3_IsrRotaryEncoder.py
 前項まではコンソールからプログラムを実行し、数値等出力もコンソール内で行っていました。
 実際にもっと複雑なアプリケーションを作る際にはもう少しグラフィカルなインターフェースであったり、リアルタイムに入力をコントロールする必要があるかと思います。
 
-最後の項ではNode.js + Websocket(Socket.io) + HTML5/JavaScriptを組み合わせて、前項までの回路をWebブラウザ上のインターフェースからコントロール／モニタリングできるようにしてみます。
+最後の項ではNode.js + Websocket(Socket.io) + HTML5/JavaScriptを組み合わせて、前項までの回路をWebブラウザ上のインターフェースからコントロールしたり、モニタリングできるようにしてみます。
 
-必要なモジュールをインストールして、GUI用のスクリプトをコンパイルします。
+Node.jsのモジュールをインストールします。
 
-https://github.com/inafact/make-it-with-mraa.git
-
-からEdison上にソースをcloneしてくるか、
-
-https://github.com/inafact/make-it-with-mraa/releases
-
-から最新のものをダウンロードして、Edison上に展開します。
-
-```
+```bash
 cd 0_mraa_intro/4_WebGuiTest
 npm install --prod
 ```
 
 回路を組んだ状態でWebサーバーを起動します。
 
-```
+```bash
 npm run server
 ```
 
 Edisonと同じネットワーク内にいるコンピューターやスマートフォンからEdisonの8080番ポートにアクセスします。
-![image_1](https://gyazo.com/ee60659f019e8283ffc877d58ad51238)
+[![https://gyazo.com/ee60659f019e8283ffc877d58ad51238](https://i.gyazo.com/ee60659f019e8283ffc877d58ad51238.png)](https://gyazo.com/ee60659f019e8283ffc877d58ad51238)
 
-- アナログ入力（A0）からの入力値を、タクトスイッチを押している間だけグラフを更新します。
+- アナログ入力（A0）からの入力値を、タクトスイッチを押している間だけグラフにプロットします。
 
-  ![image_2](https://gyazo.com/0e68ea08d165dc9c01262ea70df03000)
+  [![https://gyazo.com/dc5b2d685e783ea981416f130f42e38f](https://i.gyazo.com/dc5b2d685e783ea981416f130f42e38f.gif)](https://gyazo.com/dc5b2d685e783ea981416f130f42e38f)
 
 - ロータリーエンコーダーはグラフ横軸のスケール調整（1~100）
 
-  ![image_3](https://gyazo.com/0e68ea08d165dc9c01262ea70df03000)
+  [![https://gyazo.com/0e68ea08d165dc9c01262ea70df03000](https://i.gyazo.com/0e68ea08d165dc9c01262ea70df03000.gif)](https://gyazo.com/0e68ea08d165dc9c01262ea70df03000)
 
-- 画面側のスライダーは更新頻度を変更します（1~100。１の時30FPSで更新、以降等倍で更新頻度を下げます）。
+- 画面下部のスライダーは更新頻度を変更します（1~100。１の時30FPSで更新、以降等倍で更新頻度を下げます）。
