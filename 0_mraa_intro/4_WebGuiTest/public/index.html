@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>WebGUItest</title>
+    </head>
+    <body>
+        <div>
+            <ploter v-bind:points="ppoints" v-bind:labels="plabels"></ploter>
+        </div>
+        <div>
+            <vslider v-on:slider-change="onSliderChange"></vslider>
+        </div>
+        <script src="bundle.js"></script>
+    </body>
+</html>
