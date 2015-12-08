@@ -81,13 +81,34 @@ https://github.com/inafact/make-it-with-mraa.git
 
 からEdison上にgitでcloneしてくるか、
 
+> _gitの導入については[こちら](http://edison-lab.jp/blog/2015/07/lets-make-edison-beacon-code.html#step04)の記事も参考に_
+
 https://github.com/inafact/make-it-with-mraa/releases
 
 から最新のものをダウンロードして、Edison上に展開します。
 
 
+- gitでcloneする場合の例
 
-## 1. デジタル出力
+```bash
+git clone https://github.com/inafact/make-it-with-mraa.git
+```
+
+- wgetでのダウンロード＆展開例（＊展開されるディレクトリはmake-it-with-mraa-x.x.x[xはバージョン番号]のようになります）
+
+```bash
+wget -qO- https://github.com/inafact/make-it-with-mraa/archive/0.0.1.tar.gz | tar xvz
+```
+
+展開もしくはcloneしてきたら、このセクションのディレクトリに移動しておきます。
+
+```bash
+cd make-it-with-mraa/0_mraa_intro
+```
+
+## 1. デジタル入力
+
+タクトスイッチのON/OFFを読みとって値をコンソールに表示します
 
 ```bash
 python 1_GPIO_DigitalRead.py
@@ -99,6 +120,8 @@ node 1_GPIO_DigitalRead.js
 
 ## 2. アナログ入力
 
+可変抵抗器の値を読みとって値をコンソールに表示します
+
 ```bash
 python 2_AioA0.py
 ```
@@ -109,12 +132,14 @@ node 2_AioA0.js
 
 ## 3. 割り込み処理（ロータリーエンコーダー）
 
+ロータリーエンコーダーのクリックを読みとって割り込みイベントを発生させ、それによってインクリメント・デクリメント(基準の数に+1したり-1したりする)された数値をコンソールに表示します
+
 ```bash
 python 3_IsrRotaryEncoder.py
 ```
 
 ```
-node 3_IsrRotaryEncoder.py
+node 3_IsrRotaryEncoder.js
 ```
 
 ## 4. 簡単なGUIを作ってみる
@@ -124,10 +149,17 @@ node 3_IsrRotaryEncoder.py
 
 最後の項ではNode.js + Websocket(Socket.io) + HTML5/JavaScriptを組み合わせて、前項までの回路をWebブラウザ上のインターフェースからコントロールしたり、モニタリングできるようにしてみます。
 
-Node.jsのモジュールをインストールします。
+アプリケーションのディレクトリに移動します。
 
 ```bash
-cd 0_mraa_intro/4_WebGuiTest
+cd 4_WebGuiTest
+```
+
+Node.jsのモジュールをインストールします。
+
+> _Node.jsのモジュールのインストールなどについては[こちら](http://edison-lab.jp/blog/2015/05/lets-make-edison-node-js.html#step05)の記事も参考に_
+
+```bash
 npm install --prod
 ```
 
@@ -144,8 +176,8 @@ Edisonと同じネットワーク内にいるコンピューターやスマー�
 
   [![https://gyazo.com/dc5b2d685e783ea981416f130f42e38f](https://i.gyazo.com/dc5b2d685e783ea981416f130f42e38f.gif)](https://gyazo.com/dc5b2d685e783ea981416f130f42e38f)
 
-- ロータリーエンコーダーはグラフ横軸のスケール調整（1~100）
+- ロータリーエンコーダーではグラフ横軸のスケール調整ができます（1~100）
 
   [![https://gyazo.com/0e68ea08d165dc9c01262ea70df03000](https://i.gyazo.com/0e68ea08d165dc9c01262ea70df03000.gif)](https://gyazo.com/0e68ea08d165dc9c01262ea70df03000)
 
-- 画面下部のスライダーは更新頻度を変更します（1~100。１の時30FPSで更新、以降等倍で更新頻度を下げます）。
+- ブラウザ側の画面下部のスライダーでは更新頻度を変更できます（1~100。１の時30FPS - だいたい30ミリ秒に１回 - で更新、以降等倍で更新頻度を下げます）。
