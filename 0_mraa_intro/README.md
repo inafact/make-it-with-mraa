@@ -8,6 +8,8 @@ libmraaから扱えるデジタル・アナログ入出力や、I2C/SPI通信な
 
 なお、以降のサンプルプログラム等は基本的にIntel Edison + Intel Arduino board上での動作を前提としますが、[現状サポートされているハードウェアはIntel製である EdisonやGalileo以外にもRaspberry PiやBagelebone Blackなど](https://github.com/intel-iot-devkit/mraa#supported-boards)があり、IOピンのマッピングは内部的に行われるので、異なるプラットフォームで共通のソースコードが利用できます。
 
+---
+
 本セクションではlibmraaを使ったごく基本的なGPIOの操作を行うプログラムをPythonとJavaScript(Node.js)それぞれで実装し、実際にEdison内で動かしてみます。
 
 
@@ -49,7 +51,7 @@ Arduinoボード上にあるLEDが点滅したでしょうか？
 
 ### libmraaのアップデート
 
-開発はそこそこのスピードで行われているようなので、より新しいものを使うためには前述の通り、opkgの追加記述を行いましょう。
+libmrraの開発はそこそこのスピードで行われているようなので、より新しいものを使うためには前述の通り、opkgの追加記述を行いましょう。
 
 ```bash
 echo "src mraa-upm http://iotdk.intel.com/repos/2.0/intelgalactic" > /etc/opkg/mraa-upm.conf
