@@ -1,12 +1,14 @@
 ## libmraaと内容の簡単な説明
 
-[libmraa](https://github.com/intel-iot-devkit/mraa)はIntelが中心となって開発を行なっているオープンソースのGNU/Linux向けライブリです。
+[libmraa](https://github.com/intel-iot-devkit/mraa)はIntelが中心となって開発を行なっているオープンソースの[GNU/Linux](https://ja.wikipedia.org/wiki/GNU/Linux%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0)向けライブリです。
 
-ライブラリはC/C++で書かれていますが、C/C++以外にも、バインディングが提供されているJavaScript/Python/(Java)などで書かれたアプリケーションから利用することで、ハードウェア・開発ボードのIO操作を行うことができます。
+ライブラリはC/C++で書かれていますが、C/C++以外にも、バインディングが提供されているJavaScript/Python/(Java)などで書かれたアプリケーションから利用することで、開発ボードなどハードウェアのIO操作を行うことができます。
 
 libmraaから扱えるデジタル・アナログ入出力や、I2C/SPI通信などの機能をIntel Edison上で実際に動かし、それらを使って簡単なアプリケーションを作ってみます。
 
-なお、基本的にはIntel Edison + Intel Arduino board上での動作を前提としますが、[現状サポートされているハートウェア・開発ボードは実はIntel製である EdisonやGalileo以外にもRaspberry PiやBagelebone Blackなど](https://github.com/intel-iot-devkit/mraa#supported-boards)があり、IOピンのマッピングは内部的に行われるので、異なるプラットフォームで共通のソースコードが利用できます。
+なお、以降のサンプルプログラム等は基本的にIntel Edison + Intel Arduino board上での動作を前提としますが、[現状サポートされているハードウェアはIntel製である EdisonやGalileo以外にもRaspberry PiやBagelebone Blackなど](https://github.com/intel-iot-devkit/mraa#supported-boards)があり、IOピンのマッピングは内部的に行われるので、異なるプラットフォームで共通のソースコードが利用できます。
+
+本セクションではlibmraaを使ったごく基本的なGPIOの操作を行うプログラムをPythonとJavaScript(Node.js)それぞれで実装し、実際にEdison内で動かしてみます。
 
 
 ## 0. とりあえず使ってみる(デジタル出力/Blink)、libmraaのアップデート、ドキュメントへのリンクなど
@@ -15,30 +17,39 @@ libmraaから扱えるデジタル・アナログ入出力や、I2C/SPI通信な
 
 Intel Edisonは最新版のファームウェアにアップデートしておきます。
 
-[githubのREADME](https://github.com/intel-iot-devkit/mraa#installing-on-your-board)にはopkgの追加作業が書いてありますが、[最新版のファームウェア](https://software.intel.com/en-us/iot/hardware/edison/downloads)で単にlibmraaを使うだけであればこの作業は不要です。
+[githubのREADME](https://github.com/intel-iot-devkit/mraa#installing-on-your-board)に_[opkg](#opkg)_の追加作業が書いてありますが、[最新版のファームウェア](https://software.intel.com/en-us/iot/hardware/edison/downloads)で単にlibmraaを使うだけであればこの作業は不要です。
+
+##### _[opkg]_
+> 多くのLinuxディストリビューションではパッケージ管理システムを利用してOS内で利用されるライブラリの依存関係などを管理し、アプリケーションの導入を行いやすくしています。
+
+> opkgはEdisonのデフォルトOSイメージのベースとなっている[Yocto Project](https://www.yoctoproject.org/)によって開発・提供されている軽量なパッケージ管理システムです。
+
+> Edison上でアプリケーションを利用したり、開発を行ったりする上で必要なライブラリ群をopkgコマンドを用いてインストールし、管理することができます。
 
 何もしない状態だとv0.5.2のlibmraaがインストールされているようです(2015年11月現在、edison-iotdk-image-280915.zipにアップデートしただけの状態)。
 
 wifiなどの設定をし、Edisonがインターネットに接続された状態にします。sshやscreenなどでEdisonにログインし、下記のコマンドを実行します。
 
-```bash
-curl https://raw.githubusercontent.com/intel-iot-devkit/mraa/master/examples/javascript/Blink-IO.js | node
-```
-
-または
 
 ```bash
 curl https://raw.githubusercontent.com/inafact/make-it-with-mraa/master/0_mraa_intro/0_Blink-IO.py | python
 ```
 
+または
+
+```bash
+curl https://raw.githubusercontent.com/intel-iot-devkit/mraa/master/examples/javascript/Blink-IO.js | node
+```
+
 Arduinoボード上にあるLEDが点滅したでしょうか？
 
 最初のコマンドはNode.jsから、２番目のコマンドはPythonからlibmraaを利用したいわゆる「Lチカ」プログラムです。
+両者ともオンライン上にアップロードしてあるソースコードをダウンロードしてきて、Edison内で実行しています。
 
 
 ### libmraaのアップデート
 
-開発はそこそこのスピードで行われているようなので、より新しいものを使うためには前述の通り、opkgの追加記述を行います。
+開発はそこそこのスピードで行われているようなので、より新しいものを使うためには前述の通り、opkgの追加記述を行いましょう。
 
 ```bash
 echo "src mraa-upm http://iotdk.intel.com/repos/2.0/intelgalactic" > /etc/opkg/mraa-upm.conf
@@ -46,7 +57,7 @@ opkg update
 opkg install libmraa0
 ```
 
-その他の詳細については[githubの項目](https://github.com/intel-iot-devkit/mraa#installing-on-your-board)の通りですが、opkgでダウンロードされる内容は
+その他、詳細については[githubの項目](https://github.com/intel-iot-devkit/mraa#installing-on-your-board)の通りですが、opkgでダウンロードされる内容は
 
 http://iotdk.intel.com/repos/
 
@@ -64,13 +75,13 @@ https://github.com/intel-iot-devkit/mraa#api-documentation
 
 ---
 
-以降は[githubのレポジトリ](https://github.com/inafact/make-it-with-mraa/tree/master/0_mraa_intro)にあるソースコードを順を追って試していきます。
+以降は[githubのレポジトリ](https://github.com/inafact/make-it-with-mraa/tree/master/0_mraa_intro)にあるソースコードの順を追っていきます。
 
-同一の回路をPythonとJavaScript(Node.js)で同じように動かしていきます。
+各項ともにPythonとJavaScript(Node.js)のプログラムがありますが、基本的に同一の回路を同じように動かすものです。
 
 _＊ちなみに内容のベースは[libmraa本家のexample](https://github.com/intel-iot-devkit/mraa/tree/master/examples)です。_
 
-ブレッドボード上の回路はPDFもしくは[Fritzing](http://fritzing.org/home/)のドキュメントを同梱していますので、そちらを参考にしてください。
+ブレッドボード上に用意する回路はPDF及び[Fritzing](http://fritzing.org/home/)のドキュメントを同梱していますので、そちらを参考にしてください。
 
 
 ソースコードは
@@ -106,13 +117,17 @@ cd make-it-with-mraa/0_mraa_intro
 
 ## 1. デジタル入力
 
-![1_pdf](https://github.com/inafact/make-it-with-mraa/raw/master/0_mraa_intro/1_GPIO_DigitalRead.jpg)
+![1_jpg](https://github.com/inafact/make-it-with-mraa/raw/master/0_mraa_intro/1_GPIO_DigitalRead.jpg)
 
-タクトスイッチのON/OFFを読みとって値をコンソールに表示します
+1秒ごとにタクトスイッチのON/OFFを読み取り、値をコンソールに表示します。
+
+- Pythonから実行
 
 ```bash
 python 1_GPIO_DigitalRead.py
 ```
+
+- Node.jsから実行
 
 ```bash
 node 1_GPIO_DigitalRead.js
@@ -120,11 +135,17 @@ node 1_GPIO_DigitalRead.js
 
 ## 2. アナログ入力
 
-可変抵抗器の値を読みとって値をコンソールに表示します
+![2_jpg](https://github.com/inafact/make-it-with-mraa/raw/master/0_mraa_intro/2_AioA0.jpg)
+
+1秒ごとに可変抵抗器の値を読みとって値をコンソールに表示します。
+
+- Pythonから実行
 
 ```bash
 python 2_AioA0.py
 ```
+
+- Node.jsから実行
 
 ```bash
 node 2_AioA0.js
@@ -132,17 +153,27 @@ node 2_AioA0.js
 
 ## 3. 割り込み処理（ロータリーエンコーダー）
 
-ロータリーエンコーダーのクリックを読みとって割り込みイベントを発生させ、それによってインクリメント・デクリメント(基準の数に+1したり-1したりする)された数値をコンソールに表示します
+![3_jpg](https://github.com/inafact/make-it-with-mraa/raw/master/0_mraa_intro/3_IsrRotatryEncoder.jpg)
+
+ロータリーエンコーダーのクリックを読みとって割り込みイベントを発生させ、それによってインクリメント・デクリメント(基準の数に+1したり-1したりする)された数値をコンソールに表示します。
+先ほどまでの例と異なり、エンコーダーがトリガを発生させるので、エンコーダーを回している間はコンソールに値が出力されるようになります。
+
+- Pythonから実行
 
 ```bash
 python 3_IsrRotaryEncoder.py
 ```
+
+- Node.jsから実行
 
 ```
 node 3_IsrRotaryEncoder.js
 ```
 
 ## 4. 簡単なGUIを作ってみる
+
+![4_jpg](https://github.com/inafact/make-it-with-mraa/raw/master/0_mraa_intro/4_WebGuiTest.jpg)
+
 
 前項まではコンソールからプログラムを実行し、数値等出力もコンソール内で行っていました。
 実際にもっと複雑なアプリケーションを作る際にはもう少しグラフィカルなインターフェースであったり、リアルタイムに入力をコントロールする必要があるかと思います。
