@@ -55,13 +55,11 @@ http://iotdk.intel.com/repos/
 
 ### APIドキュメントなど
 
-ライブラリ自体のドキュメントはgithubのソースコードからコンパイルするか、オンラインのものを参考にしてください。
+各言語のAPIドキュメントはgithubのソースコードからコンパイルすることもできますが、オンラインものも下記にまとめられています。
 
-- [C/C++](http://iotdk.intel.com/docs/master/mraa/)
-- [Python](http://iotdk.intel.com/docs/master/mraa/python/)
-- [JavaScript](http://iotdk.intel.com/docs/master/mraa/node/modules/mraa.html)
+https://github.com/intel-iot-devkit/mraa#api-documentation
 
-ArduinoのIDEなどからEdisonを利用していた場合に注意しておきたいのはlibmraaのIOピンのマッピングで、Edisonのものは[こちら](http://iotdk.intel.com/docs/master/mraa/edison.html)にあるので確認しておくと良いでしょう。
+また、ArduinoのIDEなどからEdisonを利用していた場合に注意しておきたいのはlibmraaのIOピンのマッピングで、Edisonのものは[こちら](http://iotdk.intel.com/docs/master/mraa/edison.html)にあるので確認しておくと良いでしょう。
 
 
 ---
@@ -107,6 +105,8 @@ cd make-it-with-mraa/0_mraa_intro
 ```
 
 ## 1. デジタル入力
+
+![1_pdf](https://github.com/inafact/make-it-with-mraa/raw/master/0_mraa_intro/1_GPIO_DigitalRead.jpg)
 
 タクトスイッチのON/OFFを読みとって値をコンソールに表示します
 
