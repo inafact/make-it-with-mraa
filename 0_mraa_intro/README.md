@@ -4,6 +4,8 @@
 
 ライブラリはC/C++で書かれていますが、C/C++以外にも、バインディングが提供されているJavaScript/Python/(Java)などで書かれたアプリケーションから利用することで、開発ボードなどハードウェアのIO操作を行うことができます。
 
+---
+
 libmraaから扱えるデジタル・アナログ入出力や、I2C/SPI通信などの機能をIntel Edison上で実際に動かし、それらを使って簡単なアプリケーションを作ってみます。
 
 なお、以降のサンプルプログラム等は基本的にIntel Edison + Intel Arduino board上での動作を前提としますが、[現状サポートされているハードウェアはIntel製である EdisonやGalileo以外にもRaspberry PiやBagelebone Blackなど](https://github.com/intel-iot-devkit/mraa#supported-boards)があり、IOピンのマッピングは内部的に行われるので、異なるプラットフォームで共通のソースコードが利用できます。
@@ -19,7 +21,7 @@ libmraaから扱えるデジタル・アナログ入出力や、I2C/SPI通信な
 
 Intel Edisonは最新版のファームウェアにアップデートしておきます。
 
-[githubのREADME](https://github.com/intel-iot-devkit/mraa#installing-on-your-board)に_[opkg](#opkg)_の追加作業が書いてありますが、[最新版のファームウェア](https://software.intel.com/en-us/iot/hardware/edison/downloads)で単にlibmraaを使うだけであればこの作業は不要です。
+[本家githubのREADME](https://github.com/intel-iot-devkit/mraa#installing-on-your-board)に_[opkg](#opkg)_の追加作業が書いてありますが、[最新版のファームウェア](https://software.intel.com/en-us/iot/hardware/edison/downloads)で単にlibmraaを使うだけであればこの作業は不要です。
 
 ##### _[opkg]_
 > 多くのLinuxディストリビューションではパッケージ管理システムを利用してOS内で利用されるライブラリの依存関係などを管理し、アプリケーションの導入や開発を行いやすくしています。
@@ -59,7 +61,7 @@ opkg update
 opkg install libmraa0
 ```
 
-その他、詳細については[githubの項目](https://github.com/intel-iot-devkit/mraa#installing-on-your-board)の通りですが、opkgでダウンロードされる内容は
+その他、詳細については[githubの項目](https://github.com/intel-iot-devkit/mraa#installing-on-your-board)の通りですが、上記の追記でopkgによって管理されるようになる内容は
 
 http://iotdk.intel.com/repos/
 
@@ -68,7 +70,7 @@ http://iotdk.intel.com/repos/
 
 ### APIドキュメントなど
 
-各言語のAPIドキュメントはgithubのソースコードからコンパイルすることもできますが、オンラインものも下記にまとめられています。
+各言語のAPIドキュメントはgithubのソースコードからコンパイルすることもできますが、オンラインのものも下記にまとめられています。
 
 https://github.com/intel-iot-devkit/mraa#api-documentation
 
@@ -79,7 +81,7 @@ https://github.com/intel-iot-devkit/mraa#api-documentation
 
 以降は[githubのレポジトリ](https://github.com/inafact/make-it-with-mraa/tree/master/0_mraa_intro)にあるソースコードの順を追っていきます。
 
-各項ともにPythonとJavaScript(Node.js)のプログラムがありますが、基本的に同一の回路を同じように動かすものです。
+最後の項目を除いて、各項ともにPythonとJavaScript(Node.js)のプログラムがありますが、基本的に同一の回路を同じように動かすものです。
 
 _＊ちなみに内容のベースは[libmraa本家のexample](https://github.com/intel-iot-devkit/mraa/tree/master/examples)です。_
 
