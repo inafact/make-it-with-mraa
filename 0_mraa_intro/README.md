@@ -22,11 +22,11 @@ Intel Edisonは最新版のファームウェアにアップデートしてお�
 [githubのREADME](https://github.com/intel-iot-devkit/mraa#installing-on-your-board)に_[opkg](#opkg)_の追加作業が書いてありますが、[最新版のファームウェア](https://software.intel.com/en-us/iot/hardware/edison/downloads)で単にlibmraaを使うだけであればこの作業は不要です。
 
 ##### _[opkg]_
-> 多くのLinuxディストリビューションではパッケージ管理システムを利用してOS内で利用されるライブラリの依存関係などを管理し、アプリケーションの導入を行いやすくしています。
+> 多くのLinuxディストリビューションではパッケージ管理システムを利用してOS内で利用されるライブラリの依存関係などを管理し、アプリケーションの導入や開発を行いやすくしています。
 
 > opkgはEdisonのデフォルトOSイメージのベースとなっている[Yocto Project](https://www.yoctoproject.org/)によって開発・提供されている軽量なパッケージ管理システムです。
 
-> Edison上でアプリケーションを利用したり、開発を行ったりする上で必要なライブラリ群をopkgコマンドを用いてインストールし、管理することができます。
+> Edison上でアプリケーションを利用したり、開発を行ったりする上で必要なライブラリ群をopkgコマンドを利用してインストールし、管理することができます。
 
 何もしない状態だとv0.5.2のlibmraaがインストールされているようです(2015年11月現在、edison-iotdk-image-280915.zipにアップデートしただけの状態)。
 
@@ -45,8 +45,8 @@ curl https://raw.githubusercontent.com/intel-iot-devkit/mraa/master/examples/jav
 
 Arduinoボード上にあるLEDが点滅したでしょうか？
 
-最初のコマンドはNode.jsから、２番目のコマンドはPythonからlibmraaを利用したいわゆる「Lチカ」プログラムです。
-両者ともオンライン上にアップロードしてあるソースコードをダウンロードしてきて、Edison内で実行しています。
+最初のコマンドはPythonから、２番目のコマンドはNode.jsからlibmraaを利用したいわゆる「Lチカ」プログラムです。
+両者ともオンライン上にアップロードしてあるソースコードをダウンロードしてきて、Edison内で実行する、というものです。
 
 
 ### libmraaのアップデート
