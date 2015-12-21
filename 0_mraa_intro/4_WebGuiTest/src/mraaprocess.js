@@ -1,11 +1,5 @@
 /*eslint no-console:0*/
 
-var express= require('express');
-var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-var path = require('path');
-
 var m = require('mraa');
 console.log('MRAA Version: ' + m.getVersion());
 
@@ -36,24 +30,6 @@ r.mode(m.MODE_PULLUP);
 l.isr(m.EDGE_RISING, encodeL);
 r.isr(m.EDGE_FALLING, encodeR);
 
-app.use(express.static('public'));
-server.listen(8888);
-
-app.get('/', function (req, res) {
-  res.sendfile(path.resolve(__dirname, '../public', 'index.html'));
-});
-
-io.on('connection', function (socket) {
-  //
-  socket.emit('init', { hello: 'world' });
-  
-  //
-  socket.on('vslider', function (data) {
-    updateInterval = updateIntervalBase * Math.max(data.value * 0.25, 30);
-  });
-});
-
-//
 periodicActivity();
 
 //
@@ -65,13 +41,13 @@ function periodicActivity() {
   //
   analogValue = analogPin0.read();
 
-  //
-  if(!digitalPin5.read()){
-    io.emit('bang.analog', {data:analogValue});
-  }
+  // //
+  // if(!digitalPin5.read()){
+  //   io.emit('bang.analog', {data:analogValue});
+  // }
 
-  //
-  io.emit('bang.encoder', {data:counter});
+  // //
+  // io.emit('bang.encoder', {data:counter});
   
   //
   setTimeout(periodicActivity, updateInterval);
