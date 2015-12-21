@@ -155,26 +155,23 @@ python 2_AioA0.py
 node 2_AioA0.js
 ```
 
-## 3. 割り込み処理（ロータリーエンコーダー）
+## 3. 割り込み処理
 
-![3_jpg](https://github.com/inafact/make-it-with-mraa/raw/master/0_mraa_intro/3_IsrRotatryEncoder.jpg)
+![3_jpg](https://github.com/inafact/make-it-with-mraa/raw/master/0_mraa_intro/3_Isr.jpg)
 
-ロータリーエンコーダーのクリック<sup>[注1](#note1)</sup>を読みとって割り込みイベントを発生させ、それによってインクリメント・デクリメント(基準の数に+1したり-1したりする)された数値をコンソールに表示します。
-先ほどまでの例と異なり、エンコーダーがトリガを発生させるので、エンコーダーを回している間はコンソールに値が出力されるようになります。
-
-<a name="note1">
-> ロータリーエンコーダーにはプッシュスイッチが一体化しているものもあるので紛らわしい言い回しですが、ここではプッシュスイッチを押す動作の意味ではなく、ロータリーエンコーダーの回転機構上の最小動作単位の意味として使っています。
+二つのタクトスイッチのHi/Loの変化を読みとって割り込みイベントを発生させ、それによってインクリメント・デクリメント(基準の数に+1したり-1したりする)された数値をコンソールに表示します。
+先ほどまでの例と異なり、スイッチ側がトリガを発生させるので、変化した時のみコンソールに値が出力されるようになります。
 
 - Pythonから実行
 
 ```bash
-python 3_IsrRotaryEncoder.py
+python 3_Isr.py
 ```
 
 - Node.jsから実行
 
 ```
-node 3_IsrRotaryEncoder.js
+node 3_Isr.js
 ```
 
 ## 4. 簡単なGUIを作ってみる
@@ -216,7 +213,7 @@ Edisonと同じネットワーク内にいるコンピューターやスマー�
 
   [![https://gyazo.com/dc5b2d685e783ea981416f130f42e38f](https://i.gyazo.com/dc5b2d685e783ea981416f130f42e38f.gif)](https://gyazo.com/dc5b2d685e783ea981416f130f42e38f)
 
-- ロータリーエンコーダーではグラフ横軸のスケール調整ができます（1~100）
+- 中央ふたつのタクトスイッチではグラフ横軸のスケール調整ができます（1~100倍）。図の左側（PIN 6）で拡大、図の右側（PIN 7）で縮小です。
 
   [![https://gyazo.com/0e68ea08d165dc9c01262ea70df03000](https://i.gyazo.com/0e68ea08d165dc9c01262ea70df03000.gif)](https://gyazo.com/0e68ea08d165dc9c01262ea70df03000)
 
