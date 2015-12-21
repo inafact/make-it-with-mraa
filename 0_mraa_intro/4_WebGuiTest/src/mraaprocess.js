@@ -27,8 +27,14 @@ l.dir(m.DIR_IN);
 l.mode(m.MODE_PULLUP);
 r.dir(m.DIR_IN);
 r.mode(m.MODE_PULLUP);
-l.isr(m.EDGE_RISING, encodeL);
-r.isr(m.EDGE_FALLING, encodeR);
+l.isr(m.EDGE_BOTH, isrUpdate);
+r.isr(m.EDGE_BOTH, isrUpdate);
+
+process.on('message', function(msg) {
+  if (msg.hasOwnProperty('data')) {
+    updateInterval =  msg.data;
+  }
+});
 
 periodicActivity();
 
@@ -41,31 +47,25 @@ function periodicActivity() {
   //
   analogValue = analogPin0.read();
 
-  // //
-  // if(!digitalPin5.read()){
-  //   io.emit('bang.analog', {data:analogValue});
-  // }
+  //
+  if(!digitalPin5.read()){
+    process.send({type:'analog', data:analogValue});
+  }
 
-  // //
-  // io.emit('bang.encoder', {data:counter});
+  //
+  process.send({type:'bang', data:counter});
   
   //
   setTimeout(periodicActivity, updateInterval);
 }
 
-//
-function encodeL() {
-  if(counter > 0){
-    counter --;
-  }
 
-  // console.log(counter);
-}
-
-function encodeR() {
-  if(counter < 100){
+function isrUpdate() {
+  if(counter < 100 && l.read()){
     counter ++;
   }
 
-  // console.log(counter);
+  if(counter > 0 && r.read()){
+    counter --;
+  }
 }

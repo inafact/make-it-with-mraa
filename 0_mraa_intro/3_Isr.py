@@ -6,13 +6,11 @@ class Counter:
     count = 0
 
 
-def encodeL(args):
-    c.count -= 1
-    print(c.count)
-
-
-def encodeR(args):
-    c.count += 1
+def isrUpdate(args):
+    if l.read():
+        c.count += 1
+    if r.read():
+        c.count -= 1
     print(c.count)
 
 
@@ -27,7 +25,7 @@ l.mode(mraa.MODE_PULLUP)
 r.dir(mraa.DIR_IN)
 r.mode(mraa.MODE_PULLUP)
 
-l.isr(mraa.EDGE_RISING, encodeL, encodeL)
-r.isr(mraa.EDGE_FALLING, encodeR, encodeR)
+l.isr(mraa.EDGE_BOTH, isrUpdate, isrUpdate)
+r.isr(mraa.EDGE_BOTH, isrUpdate, isrUpdate)
 
 time.sleep(1000)

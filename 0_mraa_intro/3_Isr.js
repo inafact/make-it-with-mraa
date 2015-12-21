@@ -3,13 +3,15 @@
 var m = require('mraa');
 console.log('MRAA Version: ' + m.getVersion()); //write the mraa version to the console
 
-function encodeL() {
-  c --;
-  console.log(c);
-}
+function isrUpdate() {
+  if(l.read()){
+    c ++;
+  }
 
-function encodeR() {
-  c ++;
+  if(r.read()){
+    c --;
+  }
+
   console.log(c);
 }
 
@@ -22,8 +24,8 @@ l.mode(m.MODE_PULLUP);
 r.dir(m.DIR_IN);
 r.mode(m.MODE_PULLUP);
 
-l.isr(m.EDGE_RISING, encodeL);
-r.isr(m.EDGE_FALLING, encodeR);
+l.isr(m.EDGE_BOTH, isrUpdate);
+r.isr(m.EDGE_BOTH, isrUpdate);
 
 setInterval(function(){
   /* nop */
