@@ -204,7 +204,7 @@ npm install --prod
 npm run server
 ```
 
-Edisonと同じネットワーク内にいるコンピューターやスマートフォンからEdisonの8080番ポートにアクセスします。
+Edisonと同じネットワーク内にいるコンピューターやスマートフォンからEdisonの8888番ポートにアクセスします。
 [![https://gyazo.com/ee60659f019e8283ffc877d58ad51238](https://i.gyazo.com/ee60659f019e8283ffc877d58ad51238.png)](https://gyazo.com/ee60659f019e8283ffc877d58ad51238)
 
 ---
