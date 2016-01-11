@@ -1,23 +1,38 @@
-## libmraaと内容の簡単な説明
+1. [libmraaと内容の簡単な説明](#libmraaと内容の簡単な説明)
+   - [本セクションで使うもの](#本セクションで使うもの)
+2. [とりあえず使ってみる\(デジタル出力/Blink\)](#とりあえず使ってみる（デジタル出力/Blink）)
+   1. [とりあえずLチカ](#とりあえずLチカ)
+   2. [libmraaのアップデート](#libmraaのアップデート)
+   3. [APIドキュメントなど](#APIドキュメントなど)
+3. [デジタル入力](#デジタル入力)
+4. [アナログ入力](#アナログ入力)
+5. [割り込み処理](#割り込み処理)
+6. [簡単なGUIを作ってみる](#簡単なGUIを作ってみる)
+
+---
+
+# libmraaと内容の簡単な説明
 
 [libmraa](https://github.com/intel-iot-devkit/mraa)はIntelが中心となって開発を行なっているオープンソースの[GNU/Linux](https://ja.wikipedia.org/wiki/GNU/Linux%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0)向けライブリです。
 
 ライブラリはC/C++で書かれていますが、C/C++以外にも、バインディングが提供されているJavaScript/Python/(Java)などで書かれたアプリケーションから利用することで、開発ボードなどハードウェアのIO操作を行うことができます。
 
----
-
 libmraaから扱えるデジタル・アナログ入出力や、I2C/SPI通信などの機能をIntel Edison上で実際に動かし、それらを使って簡単なアプリケーションを作ってみます。
 
 なお、以降のサンプルプログラム等は基本的にIntel Edison + Intel Arduino board上での動作を前提としますが、[現状サポートされているハードウェアはIntel製である EdisonやGalileo以外にもRaspberry PiやBagelebone Blackなど](https://github.com/intel-iot-devkit/mraa#supported-boards)があり、IOピンのマッピングは内部的に行われるので、異なるプラットフォームで共通のソースコードが利用できます。
 
----
-
 本セクションではlibmraaを使ったごく基本的なGPIOの操作を行うプログラムをPythonとJavaScript(Node.js)それぞれで実装し、実際にEdison内で動かしてみます。
 
+## 本セクションで使うもの
+- Intel Edison + Arudino board
+- ホストコンピューター（Intel Edisonへsshやscreen等でアクセスする）
+- 可変抵抗器（http://akizukidenshi.com/catalog/g/gP-03277/ http://akizukidenshi.com/catalog/g/gP-00246/ など。特に値の指定はなし。ブレッドボードに刺せるものが望ましい）
+- タクトスイッチ 3個（http://akizukidenshi.com/catalog/g/gP-03647/ http://www.switch-science.com/catalog/38/ など）
 
-## 0. とりあえず使ってみる(デジタル出力/Blink)、libmraaのアップデート、ドキュメントへのリンクなど
 
-### とりあえずLチカ
+# とりあえず使ってみる（デジタル出力/Blink）
+
+## とりあえずLチカ
 
 Intel Edisonは最新版のファームウェアにアップデートしておきます。
 
@@ -51,7 +66,7 @@ Arduinoボード上にあるLEDが点滅したでしょうか？
 両者ともオンライン上にアップロードしてあるソースコードをダウンロードしてきて、Edison内で実行する、というものです。
 
 
-### libmraaのアップデート
+## libmraaのアップデート
 
 libmrraの開発はそこそこのスピードで行われているようなので、より新しいものを使うためには前述の通り、opkgの追加記述を行いましょう。
 
@@ -68,7 +83,7 @@ http://iotdk.intel.com/repos/
 の「各バージョン番号/intelgalactic/」を確認してみるとわかります。
 
 
-### APIドキュメントなど
+## APIドキュメントなど
 
 各言語のAPIドキュメントはgithubのソースコードからコンパイルすることもできますが、オンラインのものも下記にまとめられています。
 
@@ -101,13 +116,13 @@ https://github.com/inafact/make-it-with-mraa/releases
 から最新のものをダウンロードして、Edison上に展開します。
 
 
-- gitでcloneする場合の例
+### gitでcloneする場合の例
 
 ```bash
 git clone https://github.com/inafact/make-it-with-mraa.git
 ```
 
-- wgetでのダウンロード＆展開例（＊展開されるディレクトリはmake-it-with-mraa-x.x.x[xはバージョン番号]のようになります）
+### wgetでのダウンロード＆展開例（＊展開されるディレクトリはmake-it-with-mraa-x.x.x[xはバージョン番号]のようになります）
 
 ```bash
 wget -qO- https://github.com/inafact/make-it-with-mraa/archive/0.0.1.tar.gz | tar xvz
@@ -119,62 +134,61 @@ wget -qO- https://github.com/inafact/make-it-with-mraa/archive/0.0.1.tar.gz | ta
 cd make-it-with-mraa/0_mraa_intro
 ```
 
-## 1. デジタル入力
+# デジタル入力
 
 ![1_jpg](https://github.com/inafact/make-it-with-mraa/raw/master/0_mraa_intro/1_GPIO_DigitalRead.jpg)
 
 1秒ごとにタクトスイッチのON/OFFを読み取り、値をコンソールに表示します。
 
-- Pythonから実行
+### Pythonから実行
 
 ```bash
 python 1_GPIO_DigitalRead.py
 ```
-
-- Node.jsから実行
+### Node.jsから実行
 
 ```bash
 node 1_GPIO_DigitalRead.js
 ```
 
-## 2. アナログ入力
+# アナログ入力
 
 ![2_jpg](https://github.com/inafact/make-it-with-mraa/raw/master/0_mraa_intro/2_AioA0.jpg)
 
 1秒ごとに可変抵抗器の値を読みとって値をコンソールに表示します。
 
-- Pythonから実行
+### Pythonから実行
 
 ```bash
 python 2_AioA0.py
 ```
 
-- Node.jsから実行
+### Node.jsから実行
 
 ```bash
 node 2_AioA0.js
 ```
 
-## 3. 割り込み処理
+# 割り込み処理
 
 ![3_jpg](https://github.com/inafact/make-it-with-mraa/raw/master/0_mraa_intro/3_Isr.jpg)
 
 二つのタクトスイッチのHi/Loの変化を読みとって割り込みイベントを発生させ、それによってインクリメント・デクリメント(基準の数に+1したり-1したりする)された数値をコンソールに表示します。
 先ほどまでの例と異なり、スイッチ側がトリガを発生させるので、変化した時のみコンソールに値が出力されるようになります。
 
-- Pythonから実行
+### Pythonから実行
 
 ```bash
 python 3_Isr.py
 ```
 
-- Node.jsから実行
+### Node.jsから実行
 
 ```
 node 3_Isr.js
 ```
 
-## 4. 簡単なGUIを作ってみる
+# 簡単なGUIを作ってみる
 
 ![4_jpg](https://github.com/inafact/make-it-with-mraa/raw/master/0_mraa_intro/4_WebGuiTest.jpg)
 
@@ -205,9 +219,10 @@ npm run server
 ```
 
 Edisonと同じネットワーク内にいるコンピューターやスマートフォンからEdisonの8888番ポートにアクセスします。
+
 [![https://gyazo.com/ee60659f019e8283ffc877d58ad51238](https://i.gyazo.com/ee60659f019e8283ffc877d58ad51238.png)](https://gyazo.com/ee60659f019e8283ffc877d58ad51238)
 
----
+各入力は次の動作に対応しています。
 
 - アナログ入力（A0）からの入力値を、タクトスイッチを押している間だけグラフにプロットします。
 
