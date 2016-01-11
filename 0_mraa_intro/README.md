@@ -24,7 +24,7 @@ libmraaから扱えるデジタル・アナログ入出力や、I2C/SPI通信な
 本セクションではlibmraaを使ったごく基本的なGPIOの操作を行うプログラムをPythonとJavaScript(Node.js)それぞれで実装し、実際にEdison内で動かしてみます。
 
 ## 本セクションで使うもの
-- Intel Edison + Arudino board
+- Intel Edison + Arduino board
 - ホストコンピューター（Intel Edisonへsshやscreen等でアクセスする）
 - 可変抵抗器（http://akizukidenshi.com/catalog/g/gP-03277/ http://akizukidenshi.com/catalog/g/gP-00246/ など。特に値の指定はなし。ブレッドボードに刺せるものが望ましい）
 - タクトスイッチ 3個（http://akizukidenshi.com/catalog/g/gP-03647/ http://www.switch-science.com/catalog/38/ など）
