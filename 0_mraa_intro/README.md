@@ -26,7 +26,7 @@ libmraaから扱えるデジタル・アナログ入出力や、I2C/SPI通信な
 ## 本セクションで使うもの
 - Intel Edison + Arduino board
 - ホストコンピューター（Intel Edisonへsshやscreen等でアクセスする）
-- 可変抵抗器（http://akizukidenshi.com/catalog/g/gP-03277/ http://akizukidenshi.com/catalog/g/gP-00246/ など。特に値の指定はなし。ブレッドボードに刺せるものが望ましい）
+- 可変抵抗器（http://akizukidenshi.com/catalog/g/gP-03277/ http://akizukidenshi.com/catalog/g/gP-00246/ など。厳密な値の指定はないがテストでは10KΩ程度を使用。ブレッドボードに刺せるものが望ましい）
 - タクトスイッチ 3個（http://akizukidenshi.com/catalog/g/gP-03647/ http://www.switch-science.com/catalog/38/ など）
 
 
