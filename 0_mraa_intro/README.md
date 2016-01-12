@@ -29,8 +29,12 @@ libmraaから扱えるデジタル・アナログ入出力や、I2C/SPI通信な
 
 - Intel Edison + Arduino board
 - ホストコンピューター（Intel Edisonへsshやscreen等でアクセスする）
-- 可変抵抗器（http://akizukidenshi.com/catalog/g/gP-03277/ http://akizukidenshi.com/catalog/g/gP-00246/ など。厳密な値の指定はないがテストでは10KΩ程度を使用。ブレッドボードに刺せるものが望ましい）
+- ブレッドボード
+- ジャンパーワイヤー 10本前後 (サンプルの図で同時使用している最大本数は13本)
+- 可変抵抗器（http://akizukidenshi.com/catalog/g/gP-03277/ http://akizukidenshi.com/catalog/g/gP-00246/ など。厳密な値の指定はないがテストでは10KΩ程度を使用。ブレッドボードに刺せるものが望ましい） 1個
 - タクトスイッチ 3個（http://akizukidenshi.com/catalog/g/gP-03647/ http://www.switch-science.com/catalog/38/ など）
+- ACアダプタ（7〜15V）、もしくは電源供給用のUSB micro Bケーブル
+- 通信用USB micro B ケーブル（_screenなどを使ってシリアル通信でEdisonにつなぐ場合のみ必要_）
 
 
 # とりあえず使ってみる（デジタル出力/Blink）
